@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ball Animation</title>
+</head>
+<body>
+   <canvas id="canvas" width="400" height="300"></canvas>
+<script>
+    var colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"];
+    var pickRandomColor = function (colors) {
+        return colors[Math.floor(Math.random() * colors.length)];
+    };
+    var Ball = function () {
+        this.color = pickRandomColor(colors);
+        this.x = 100;
+        this.y = 100;
+        this.xSpeed = Math.random() * 10 - 5;
+        this.ySpeed = Math.random() * 10 - 5;
+    };
+    var circle = function (x, y, radius, fillCircle) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+        if (fillCircle) {
+            ctx.fill();
+        } else {
+            ctx.stroke();
+        }
+    };
+    Ball.prototype.draw = function () {
+        ctx.fillStyle = this.color;
+        circle(this.x, this.y, 10, true);
+    };
+    Ball.prototype.move = function () {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+    };
+    Ball.prototype.checkCollision = function () {
+        if (this.x < 10 || this.x > width-10) {
+            this.xSpeed = -this.xSpeed;
+        }
+        if (this.y < 10 || this.y > height-10) {
+            this.ySpeed = -this.ySpeed;
+        }
+    };
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    var ballArray = [];
+    for(i=0;i<5;i++){
+        var ball = new Ball();
+        ballArray.push(ball);
+    }
+    setInterval(function () {
+        ctx.clearRect(0, 0, width, height);
+        for(i=0;i<ballArray.length;i++){
+            ballArray[i].draw();
+            ballArray[i].move();
+            ballArray[i].checkCollision();
+        }
+        ctx.strokeRect(0, 0, width, height);
+    }, 30);
+</script>
+</body>
+</html>

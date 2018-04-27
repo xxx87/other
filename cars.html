@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Cars</title>
+ </head>
+ <body>
+
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+<script>
+
+    var counter = 0;
+    var Car = function(x, y){
+        this.x = x;
+        this.y = y;
+        this.draw();
+    }
+
+    Car.prototype.draw = function () {
+        var carHtml = '<img src="img/car.png">';
+        this.carElement = $(carHtml);
+        this.carElement.css({
+        position: "absolute",
+        left: this.x,
+        top: this.y
+        });
+        $("body").append(this.carElement);
+    };
+    Car.prototype.moveRight = function () {
+        this.x += 5;
+        this.carElement.css({
+            left: this.x,
+            top: this.y
+        });
+    };
+    Car.prototype.moveLeft = function () {
+        this.x -= 5;
+        this.carElement.css({
+            left: this.x,
+            top: this.y
+        });
+    };
+    Car.prototype.moveUp = function () {
+        this.y -= 5;
+        this.carElement.css({
+            left: this.x,
+            top: this.y
+        });
+    };
+    Car.prototype.moveDown = function () {
+        this.y += 5;
+        this.carElement.css({
+            left: this.x,
+            top: this.y
+        });
+    };
+
+    var tesla = new Car(20, 20);
+    var nissan = new Car(100, 200);
+    var volvo = new Car(140, 80);
+
+//    tesla.draw();
+//    nissan.draw();
+
+
+
+//    var timer = setInterval(function(){
+//        if((tesla.x < 200) && (tesla.y < 200)){
+//            tesla.moveRight();
+//            tesla.moveDown();
+//        }
+//        console.log('x: ' + tesla.x + ' y: ' + tesla.y);
+//        if((tesla.x === 200) && (tesla.y === 200)){
+//            clearInterval(timer)
+//        }
+//    }, 100);
+//
+//    var timer1 = setInterval(function(){
+//        if(tesla.x >= 200 && tesla.y >= 200 && tesla.y > 0){
+//            tesla.moveRight();
+//            tesla.moveUp();
+//        }
+//        console.log('y' + tesla.y);
+//        if(tesla.y === 0){
+//            clearInterval(timer1);
+//        }
+//        console.log(tesla.x);
+//    }, 100);
+
+//    var tesla = new Car(10,20);
+//    console.log(tesla);
+
+
+</script>
+ </body>
+</html>
