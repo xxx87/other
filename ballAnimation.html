@@ -7,18 +7,19 @@
 <body>
    <canvas id="canvas" width="400" height="300"></canvas>
 <script>
-    var colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"];
-    var pickRandomColor = function (colors) {
+    var ballCount = 10,
+        colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Pink", "Orangered", "Chartreuse", "Cyan"],
+    pickRandomColor = function (colors) {
         return colors[Math.floor(Math.random() * colors.length)];
-    };
-    var Ball = function () {
+        },
+    Ball = function () {
         this.color = pickRandomColor(colors);
         this.x = 100;
         this.y = 100;
         this.xSpeed = Math.random() * 10 - 5;
         this.ySpeed = Math.random() * 10 - 5;
-    };
-    var circle = function (x, y, radius, fillCircle) {
+        },
+    circle = function (x, y, radius, fillCircle) {
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2, false);
         if (fillCircle) {
@@ -43,18 +44,20 @@
             this.ySpeed = -this.ySpeed;
         }
     };
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    var width = canvas.width;
-    var height = canvas.height;
-    var ballArray = [];
-    for(i=0;i<5;i++){
+    var canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext("2d"),
+        width = canvas.width,
+        height = canvas.height,
+        ballArray = [];
+
+    for(let i = 0; i < ballCount; i += 1){
         var ball = new Ball();
         ballArray.push(ball);
     }
+
     setInterval(function () {
         ctx.clearRect(0, 0, width, height);
-        for(i=0;i<ballArray.length;i++){
+        for(let i = 0; i < ballArray.length; i += 1){
             ballArray[i].draw();
             ballArray[i].move();
             ballArray[i].checkCollision();
